@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="dashboard.css">
+
+</head>
+<body>
+    <header>
+        <div class="logo" onclick="window.location.href='../students/students.html'">
+            <img src="..\assets\logo.png" alt="Logo">
+        </div>
+        <div class="user-info">
+            <div class="notifications">
+                <div class="bell" id="notification-bell" onclick="openMessages()">
+                    <span class="bell-icon">&#128276;</span>
+                    <div class="new-messages-indicator" id="new-messages-indicator"></div>
+                </div>
+                <div class="message-preview" id="message-preview">
+                    <ul>
+                        <li>
+                            <div class="message-item">
+                                <img src="..\assets\avatar.png" alt="Avatar">
+                                <div class="message-content">
+                                    <span class="sender-name">Student A</span>
+                                    <span class="message-text">Sample Message...</span>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="message-item">
+                                <img src="..\assets\avatar.png" alt="Avatar">
+                                <div class="message-content">
+                                    <span class="sender-name">Student B</span>
+                                    <span class="message-text">Sample Message...</span>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="message-item">
+                                <img src="..\assets\avatar.png" alt="Avatar">
+                                <div class="message-content">
+                                    <span class="sender-name">Student C</span>
+                                    <span class="message-text">Sample Message...</span>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="user-profile">
+                <div class="profile-icon">
+                    <img src="..\assets\user-avatar.png" alt="User Avatar">
+                    <span class="user-name">Kuhivchak Sofiia</span>
+                </div>
+                <div class="profile-tooltip">
+                    <ul>
+                        <li>
+                            <button id="profile-btn">Profile</button>
+                        </li>
+                        <li>
+                            <button id="logout-btn">Log Out</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <button class="burger-menu" id="burger-menu" onclick="toggleSidebar()">&#9776;</button>
+
+        <div class="sidebar">
+            <nav>
+                <ul>
+                    <li><a href="dashboard.html" class="active">Dashboard</a></li>
+                    <li><a href="../students/students.html">Students</a></li>
+                    <li><a href="../tasks/tasks.html">Tasks</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="content">
+            <main>
+
+                <h1>Dashboard</h1>
+
+            </main>
+        </div>
+    </div>
+
+    <script src="dashboard.js"></script>
+    <script src="../script.js"></script>
+
+</body>
+</html>
