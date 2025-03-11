@@ -69,15 +69,17 @@ studentForm.addEventListener("submit", (e) => {
 // Function to generate table row content
 function createRowContent(group, firstName, lastName, gender, birthday) {
     const rowContent = `
-        <td><input type="checkbox" class="student-checkbox"></td>
+        <td>
+            <input type="checkbox" aria-label="Select student" class="student-checkbox">
+        </td>
         <td>${group}</td>
         <td>${firstName} ${lastName}</td>
         <td>${gender}</td>
         <td>${birthday}</td>
         <td><span class="status ${firstName === "Sofiia" ? "online" : "offline"}"></span></td>
         <td> 
-            <button class="edit-btn"><img src="..\\assets\\edit-icon.png" alt="Edit"></button>
-            <button class="delete-btn"><img src="..\\assets\\remove-icon.png" alt="Remove"></button>
+            <button class="edit-btn"><img src="../assets/edit-icon.png" alt="Edit"></button>
+            <button class="delete-btn"><img src="../assets/remove-icon.png" alt="Remove"></button>
         </td>
     `;
     return rowContent;
@@ -102,7 +104,7 @@ tbody.addEventListener("click", (e) => {
         else {
             selected.push(e.target.closest("tr"));
 
-            const cells = deletingRow.querySelectorAll("td");
+            const cells = selected[0].querySelectorAll("td");
             const name = cells[2].textContent;
 
             const confirmMessage = document.querySelector("#delete-confirm-modal p");
@@ -121,7 +123,7 @@ tbody.addEventListener("click", (e) => {
         document.getElementById("group").value = cells[1].textContent;
         document.getElementById("first-name").value = nameParts[0];
         document.getElementById("last-name").value = nameParts[1];
-        document.getElementById("gender").value = cells[3].textContent.toLowerCase();
+        document.getElementById("gender").value = cells[3].textContent;
         document.getElementById("birthday").value = cells[4].textContent;
 
         const saveButton = document.querySelector(".create-btn");
@@ -201,7 +203,7 @@ function updateActions() {
 // Mock data function
 function renderTable() {
     const row = document.createElement("tr");
-    row.innerHTML = createRowContent("PZ-22", "Sofiia", "Kuhivchak", "female", "2005-10-10");
+    row.innerHTML = createRowContent("PZ-22", "Sofiia", "Kuhivchak", "Female", "2005-10-10");
     tbody.appendChild(row);
 }
 
