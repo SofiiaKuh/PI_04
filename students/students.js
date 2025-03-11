@@ -16,10 +16,14 @@ addStudentBtn.addEventListener("click", () => {
     modalTitle.textContent = "Add Student";
     studentForm.reset();
     document.getElementById("Add-edit-modal").style.display = "flex";
+    checkFormValidity();
+
 });
 
 document.getElementById("close-edit-modal").addEventListener("click", () => {
     document.getElementById("Add-edit-modal").style.display = "none";
+    resetTheEditForm();
+
 });
 
 document.getElementById("close-delete-modal").addEventListener("click", () => {
@@ -28,6 +32,7 @@ document.getElementById("close-delete-modal").addEventListener("click", () => {
 
 document.querySelector(".close-btn").addEventListener("click", () => {
     document.querySelector(".modal").style.display = "none";
+    resetTheEditForm();
 });
 
 cancelDeleteBtn.addEventListener("click", () => {
@@ -61,6 +66,7 @@ studentForm.addEventListener("submit", (e) => {
 
         document.getElementById("Add-edit-modal").style.display = "none";
         studentForm.reset();
+        resetTheEditForm();
     } else {
         alert("Please fill in all fields.");
     }
@@ -209,6 +215,241 @@ function renderTable() {
 
 renderTable();
 
+
 document.querySelectorAll('.student-checkbox').forEach(checkbox => {
     checkbox.addEventListener('change', SetChecked);
 });
+
+
+
+
+// validation
+
+const inputFields = document.querySelectorAll('input:not([type="date"])');
+
+const selectItem = document.querySelector('select');
+
+const birthdayInput = document.getElementById('birthday');
+
+selectItem.addEventListener('blur', () => {
+    if (selectItem.value !== '') {
+        selectItem.classList.add('dirty');
+    } else {
+        selectItem.classList.remove('dirty');
+    }
+
+    if (!selectItem.checkValidity()) {
+        selectItem.classList.add('invalid')
+        selectItem.classList.add('touched');
+        showError(selectItem, selectItem.validationMessage);
+
+    }
+    else{
+
+        selectItem.classList.remove('invalid')
+        selectItem.classList.add('valid');
+        clearError(selectItem);
+    }
+    checkFormValidity();
+
+});
+
+inputFields.forEach(input => {
+    input.addEventListener('input', () => {
+
+        if (input.value !== '') {
+            input.classList.add('dirty');
+        } else {
+            input.classList.remove('dirty');
+        }
+
+
+        if (!input.checkValidity()) {
+            input.classList.add('invalid');
+            showError(input, input.validationMessage);
+        } else {
+            input.classList.remove('invalid');
+            clearError(input);
+        }
+
+        checkFormValidity();
+
+    });
+
+    input.addEventListener('blur', () => {
+        if (!input.checkValidity()) {
+            input.classList.add('invalid');
+            input.classList.add('touched');
+            showError(input, input.validationMessage);
+        } else {
+            input.classList.remove('invalid');
+            input.classList.remove('touched');
+            input.classList.add('valid');
+            clearError(input);
+        }
+        checkFormValidity();
+
+    });
+});
+
+function showError(input, message) {
+    console.log(message);
+    let errorMessage = message || "This field is required.";
+    let errorSpan = input.nextElementSibling;
+
+    errorSpan.textContent = errorMessage;
+    errorSpan.classList.remove('hidden');
+}
+
+function clearError(input) {
+    let errorSpan = input.nextElementSibling;
+    if (errorSpan && errorSpan.classList.contains('error-message')) {
+        errorSpan.textContent = '';
+        errorSpan.classList.add('hidden');
+    }
+}
+
+
+birthdayInput.addEventListener('blur', () => {
+    if (birthdayInput.value !== '') {
+        birthdayInput.classList.add('dirty');
+    } else {
+        birthdayInput.classList.remove('dirty');
+    }
+
+    if (!validateBirthdayAndDisplayError(birthdayInput)) {
+        birthdayInput.classList.add('invalid')
+        birthdayInput.classList.add('touched');
+
+    }
+    else {
+
+        birthdayInput.classList.remove('invalid')
+        birthdayInput.classList.add('valid');
+        clearError(birthdayInput);
+    }
+
+    checkFormValidity();
+});
+
+
+birthdayInput.addEventListener('input', () => {
+    if (birthdayInput.value !== '') {
+        birthdayInput.classList.add('dirty');
+    } else {
+        birthdayInput.classList.remove('dirty');
+    }
+
+    if (!validateBirthdayAndDisplayError(birthdayInput)) {
+        birthdayInput.classList.add('invalid')
+        birthdayInput.classList.add('touched');
+
+    }
+    else {
+
+        birthdayInput.classList.remove('invalid')
+        birthdayInput.classList.add('valid');
+        clearError(birthdayInput);
+    }
+
+    checkFormValidity();
+
+});
+
+
+function checkFormValidity() {
+    let isValid = true;
+
+    inputFields.forEach(input => {
+        if (!input.checkValidity()) {
+            isValid = false;
+        }
+    });
+
+    if (!selectItem.checkValidity()) {
+        isValid = false;
+    }
+
+    if (!validateBirthday(birthdayInput)) {
+        isValid = false;
+    }
+
+
+    document.getElementById('submit-modal-button').disabled = !isValid;
+}
+
+function validateBirthdayAndDisplayError(birthdayInput) {
+    const birthdayValue = birthdayInput.value;
+    const today = new Date();
+    const birthDate = new Date(birthdayValue);
+
+
+    if (birthdayValue) {
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const monthDifference = today.getMonth() - birthDate.getMonth();
+        const dayDifference = today.getDate() - birthDate.getDate();
+
+        if (monthDifference < 0 || (monthDifference === 0 && dayDifference < 0)) {
+            age--;
+        }
+
+        console.log(age);
+
+        if (age >= 18 && age <= 100) {
+            birthdayInput.classList.remove('invalid');
+            clearError(birthdayInput);
+            return true;
+        } else {
+            birthdayInput.classList.add('invalid');
+            showError(birthdayInput, 'You must be between 18 and 100 years old.');
+            return false;
+        }
+    } else {
+        birthdayInput.classList.add('invalid');
+        showError(birthdayInput, 'Birthday is required.');
+        return false;
+    }
+}
+
+function validateBirthday(birthdayInput) {
+    const birthdayValue = birthdayInput.value;
+    const today = new Date();
+    const birthDate = new Date(birthdayValue);
+
+
+    if (birthdayValue) {
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const monthDifference = today.getMonth() - birthDate.getMonth();
+        const dayDifference = today.getDate() - birthDate.getDate();
+
+        if (monthDifference < 0 || (monthDifference === 0 && dayDifference < 0)) {
+            age--;
+        }
+
+        console.log(age);
+
+        if (age >= 18 && age <= 100) {
+            return true;
+        } else {
+            return false;
+        }
+    } else {
+        return false;
+    }
+}
+
+function resetTheEditForm() {
+    inputFields.forEach(input => {
+        input.classList.remove('invalid');
+        input.classList.remove('dirty');
+        clearError(input);
+    });
+
+    selectItem.classList.remove('invalid');
+    selectItem.classList.remove('dirty');
+    clearError(selectItem);
+
+    birthdayInput.classList.remove('invalid');
+    birthdayInput.classList.remove('dirty');
+    clearError(birthdayInput);
+}
