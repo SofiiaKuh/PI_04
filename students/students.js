@@ -43,6 +43,7 @@ cancelDeleteBtn.addEventListener("click", () => {
 studentForm.addEventListener("submit", (e) => {
     e.preventDefault();
 
+    const id = document.getElementById("student-id").value || Date.now().toString();
     const group = studentForm.querySelector("input[name='group']").value;
     const firstName = studentForm.querySelector("input[name='first-name']").value;
     const lastName = studentForm.querySelector("input[name='last-name']").value;
@@ -50,19 +51,30 @@ studentForm.addEventListener("submit", (e) => {
     const birthday = studentForm.querySelector("input[name='birthday']").value;
 
     if (group && firstName && lastName && gender && birthday) {
+            const studentData = {
+                id,
+                group,
+                firstName,
+                lastName,
+                gender,
+                birthday
+            };
+
         if (editingRow) {
             // Update existing row
-            editingRow.innerHTML = createRowContent(group, firstName, lastName, gender, birthday);
+            editingRow.innerHTML = createRowContent(id, group, firstName, lastName, gender, birthday);
             editingRow = null;
         } else {
             // Create new row
             const row = document.createElement("tr");
-            row.innerHTML = createRowContent(group, firstName, lastName, gender, birthday);
+            row.innerHTML = createRowContent(id, group, firstName, lastName, gender, birthday);
             tbody.appendChild(row);
 
             row.querySelector('.student-checkbox').addEventListener('change', SetChecked);
             SetChecked();
         }
+
+        console.log(JSON.stringify(studentData));
 
         document.getElementById("Add-edit-modal").style.display = "none";
         studentForm.reset();
@@ -126,6 +138,7 @@ tbody.addEventListener("click", (e) => {
         const cells = editingRow.querySelectorAll("td");
         const nameParts = cells[2].textContent.split(" ");
 
+        document.getElementById("student-id").value = editingRow.dataset.id || "";
         document.getElementById("group").value = cells[1].textContent;
         document.getElementById("first-name").value = nameParts[0];
         document.getElementById("last-name").value = nameParts[1];
@@ -231,6 +244,12 @@ const selectItem = document.querySelector('select');
 
 const birthdayInput = document.getElementById('birthday');
 
+const regexPatterns = {
+    group: /^[a-zA-Z]{2,6}[-_][0-9]{1,3}$/, 
+    firstName: /^[a-zA-Z]{2,20}$/, 
+    lastName: /^[a-zA-Z]{2,30}$/,     
+};
+
 selectItem.addEventListener('blur', () => {
     if (selectItem.value !== '') {
         selectItem.classList.add('dirty');
@@ -272,6 +291,10 @@ inputFields.forEach(input => {
             clearError(input);
         }
 
+        if (regexPatterns[input.name]) {
+            validateWithRegExp(input, regexPatterns[input.name]);
+        }
+
         checkFormValidity();
 
     });
@@ -281,7 +304,12 @@ inputFields.forEach(input => {
             input.classList.add('invalid');
             input.classList.add('touched');
             showError(input, input.validationMessage);
-        } else {
+        } else if (regexPatterns[input.name] && !validateWithRegExp(input, regexPatterns[input.name])) {
+            input.classList.add('invalid');
+            input.classList.add('touched');
+            showError(input, `Invalid format: ${input.getAttribute('name')}`);
+        }
+        else {
             input.classList.remove('invalid');
             input.classList.remove('touched');
             input.classList.add('valid');
@@ -452,4 +480,16 @@ function resetTheEditForm() {
     birthdayInput.classList.remove('invalid');
     birthdayInput.classList.remove('dirty');
     clearError(birthdayInput);
+}
+
+function validateWithRegExp(input, regex) {
+    if (!regex.test(input.value)) {
+        input.classList.add('invalid');
+        showError(input, `Invalid format: ${input.getAttribute('name')}`);
+        return false;
+    } else {
+        input.classList.remove('invalid');
+        clearError(input);
+        return true;
+    }
 }

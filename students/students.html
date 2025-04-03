@@ -7,6 +7,7 @@
     <title>Students</title>
     <link rel="stylesheet" href="../styles.css">
     <link rel="stylesheet" href="students.css">
+    <link rel="manifest" href="../manifest.json">
 
 </head>
 <body>
@@ -126,6 +127,10 @@
                 <span class="close" id="close-edit-modal">&times;</span>
                 <h2 id="modal-title">Add Student</h2>
                 <form id="student-form">
+
+                    <!--Id-->
+                    <input aria-label="id" type="hidden" id="student-id" name="id">
+
                     <!-- Group -->
                     <label for="group">Group</label>
                     <input type="text" id="group" name="group" required minlength="2" maxlength="10" pattern="^[a-zA-Z]{2,6}[-_][0-9]{1,3}$" title="Group must start with 2-6 letters, followed by an underscore or dash, and end with 1-3 digits.">
