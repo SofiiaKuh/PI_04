@@ -1,4 +1,4 @@
-const API_BASE = 'http://localhost/student_app/public'; // adjust as needed
+const API_BASE = 'http://localhost/student_app/public';
 
 export async function fetchStudents() {
   const res = await fetch(`${API_BASE}/get_students.php`);
