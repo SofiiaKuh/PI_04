@@ -11,179 +11,179 @@
 
 </head>
 <body>
-        <header>
-            <div class="logo" onclick="window.location.href='students.html'">
-                <img src="../assets/logo.png" loading="lazy" alt="Logo">
-            </div>
-            <div class="user-info">
-                <div class="notifications">
-                    <div class="bell" id="notification-bell" onclick="openMessages()">
-                        <span class="bell-icon">&#128276;</span>
-                        <div class="new-messages-indicator" id="new-messages-indicator"></div>
-                    </div>
-                    <div class="message-preview" id="message-preview">
-                        <ul>
-                            <li>
-                                <div class="message-item">
-                                    <img src="../assets/avatar.png" loading="lazy"  alt="Avatar">
-                                    <div class="message-content">
-                                        <span class="sender-name">Student A</span>
-                                        <span class="message-text">Sample Message...</span>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="message-item">
-                                    <img src="../assets/avatar.png"loading="lazy"  alt="Avatar">
-                                    <div class="message-content">
-                                        <span class="sender-name">Student B</span>
-                                        <span class="message-text">Sample Message...</span>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="message-item">
-                                    <img src="../assets/avatar.png" loading="lazy"  alt="Avatar">
-                                    <div class="message-content">
-                                        <span class="sender-name">Student C</span>
-                                        <span class="message-text">Sample Message...</span>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
+  <header>
+    <div class="logo" onclick="window.location.href='students.html'">
+      <img src="../assets/logo.png" loading="lazy" alt="Logo">
+    </div>
+    <div class="user-info">
+      <div class="notifications">
+        <div class="bell" id="notification-bell" onclick="openMessages()">
+          <span class="bell-icon">&#128276;</span>
+          <div class="new-messages-indicator" id="new-messages-indicator"></div>
+        </div>
+        <div class="message-preview" id="message-preview">
+          <ul>
+            <li>
+              <div class="message-item">
+                <img src="../assets/avatar.png" loading="lazy" alt="Avatar">
+                <div class="message-content">
+                  <span class="sender-name">Student A</span>
+                  <span class="message-text">Sample Message...</span>
                 </div>
-                <div class="user-profile">
-                    <div class="profile-icon">
-                        <img src="../assets/user-avatar.png" loading="lazy"  alt="User Avatar">
-                        <span class="user-name">Kuhivchak Sofiia</span>
-                    </div>
-                    <div class="profile-tooltip">
-                        <ul>
-                            <li>
-                                <button id="profile-btn">Profile</button>
-                            </li>
-                            <li>
-                                <button id="logout-btn">Log Out</button>
-                            </li>
-                        </ul>
-                    </div>
+              </div>
+            </li>
+            <li>
+              <div class="message-item">
+                <img src="../assets/avatar.png" loading="lazy" alt="Avatar">
+                <div class="message-content">
+                  <span class="sender-name">Student B</span>
+                  <span class="message-text">Sample Message...</span>
                 </div>
-            </div>
-        </header>
+              </div>
+            </li>
+            <li>
+              <div class="message-item">
+                <img src="../assets/avatar.png" loading="lazy" alt="Avatar">
+                <div class="message-content">
+                  <span class="sender-name">Student C</span>
+                  <span class="message-text">Sample Message...</span>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="user-profile">
+        <div class="profile-icon">
+          <img src="../assets/user-avatar.png" loading="lazy" alt="User Avatar">
+          <span class="user-name">Kuhivchak Sofiia</span>
+        </div>
+        <div class="profile-tooltip">
+          <ul>
+            <li>
+              <button id="profile-btn">Profile</button>
+            </li>
+            <li>
+              <button id="logout-btn">Log Out</button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </header>
 
-        <div class="main-container">
-            <button class="burger-menu" id="burger-menu" onclick="toggleSidebar()">&#9776;</button>
-            <div class="sidebar">
-                <nav>
-                    <ul>
-                        <li><a href="../dashboard/dashboard.html">Dashboard</a></li>
-                        <li><a href="students.html" class="active">Students</a></li>
-                        <li><a href="../tasks/tasks.html">Tasks</a></li>
-                    </ul>
-                </nav>
-            </div>
+  <div class="main-container">
+    <button class="burger-menu" id="burger-menu" onclick="toggleSidebar()">&#9776;</button>
+    <div class="sidebar">
+      <nav>
+        <ul>
+          <li><a href="../dashboard/dashboard.html">Dashboard</a></li>
+          <li><a href="students.html" class="active">Students</a></li>
+          <li><a href="../tasks/tasks.html">Tasks</a></li>
+        </ul>
+      </nav>
+    </div>
 
-            <div class="content">
-                <main>
+    <div class="content">
+      <main>
 
-                    <h1>Students</h1>
-                    <div id="add-student-container" class="add-student-container">
-                        <button id="add-student" onclick="">Add Student</button>
-                    </div>
-                    <table class="student-table">
-                        <thead>
-                            <tr>
-                                <th>
-                                    <input type="checkbox" id="select-all" aria-label="Select all" onclick="toggleSelectAll()">
-                                    <p class="hidden">sth</p>
-                                </th>
-                                <th>Group</th>
-                                <th>Name</th>
-                                <th>Gender</th>
-                                <th>Birthday</th>
-                                <th>Status</th>
-                                <th>Options</th>
-                            </tr>
-                        </thead>
-                        <tbody id="student-table-body">
-                            <!-- Rows will be dynamically generated by JavaScript -->
-                        </tbody>
-                    </table>
-                    <div id="pagination" class="pagination">
-                        <button id="prev-page" class="pagination-btn" disabled>Previous</button>
-                        <button id="page-1" class="pagination-btn active">1</button>
-                        <button id="page-2" class="pagination-btn">2</button>
-                        <button id="page-3" class="pagination-btn">3</button>
-                        <button id="page-4" class="pagination-btn">4</button>
-                        <button id="next-page" class="pagination-btn">Next</button>
-                    </div>
-                </main>
-            </div>
+        <h1>Students</h1>
+        <div id="add-student-container" class="add-student-container">
+          <button id="add-student" onclick="">Add Student</button>
+        </div>
+        <table class="student-table">
+          <thead>
+            <tr>
+              <th>
+                <input type="checkbox" id="select-all" aria-label="Select all" onclick="toggleSelectAll()">
+                <p class="hidden">sth</p>
+              </th>
+              <th>Group</th>
+              <th>Name</th>
+              <th>Gender</th>
+              <th>Birthday</th>
+              <th>Status</th>
+              <th>Options</th>
+            </tr>
+          </thead>
+          <tbody id="student-table-body">
+            <!-- Rows will be dynamically generated by JavaScript -->
+          </tbody>
+        </table>
+        <div id="pagination" class="pagination">
+          <button id="prev-page" class="pagination-btn" disabled>Previous</button>
+          <button id="page-1" class="pagination-btn active">1</button>
+          <button id="page-2" class="pagination-btn">2</button>
+          <button id="page-3" class="pagination-btn">3</button>
+          <button id="page-4" class="pagination-btn">4</button>
+          <button id="next-page" class="pagination-btn">Next</button>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <div id="Add-edit-modal" class="hidden modal Add-edit-modal">
+    <div class="modal-content">
+      <span class="close" id="close-edit-modal">&times;</span>
+      <h2 id="modal-title">Add Student</h2>
+      <form id="student-form">
+
+        <!--Id-->
+        <input aria-label="id" type="hidden" id="student-id" name="id">
+
+        <!-- Group -->
+        <label for="group">Group</label>
+        <input type="text" id="group" name="group" required minlength="2" maxlength="10" pattern="^[a-zA-Z]{2,6}[-_][0-9]{1,3}$" title="Group must start with 2-6 letters, followed by an underscore or dash, and end with 1-3 digits.">
+        <span class="error-message hidden" id="group-error"></span>
+
+        <!-- First Name -->
+        <label for="first-name">First Name</label>
+        <input type="text" id="first-name" name="first-name" required minlength="2" maxlength="20" pattern="^[a-zA-Z]+$" title="First name should only consist of letters.">
+        <span class="error-message hidden" id="firstname-error"></span>
+
+        <!-- Last Name -->
+        <label for="last-name">Last Name</label>
+        <input type="text" id="last-name" name="last-name" required minlength="2" maxlength="30" pattern="^[a-zA-Z]+$" title="Last name should only consist of letters.">
+        <span class="error-message hidden" id="lastname-error"></span>
+
+        <!-- Gender -->
+        <label for="gender">Gender</label>
+        <select id="gender" name="gender" required>
+          <option value="" disabled selected>Select Gender</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Other">Other</option>
+        </select>
+        <span class="error-message hidden" id="gender-error"></span>
+
+        <!-- Birthday -->
+        <label for="birthday">Birthday</label>
+        <input type="date" id="birthday" name="birthday" value="2005-10-10" required>
+        <span class="error-message hidden" id="birthday-error"></span>
+
+        <!-- Submit buttons -->
+        <div class="modal-buttons">
+          <button type="button" class="close-btn">Cancel</button>
+          <button type="submit" class="create-btn" id="submit-modal-button">Create</button>
         </div>
 
-        <div id="Add-edit-modal" class="hidden modal Add-edit-modal">
-            <div class="modal-content">
-                <span class="close" id="close-edit-modal">&times;</span>
-                <h2 id="modal-title">Add Student</h2>
-                <form id="student-form">
+      </form>
+    </div>
+  </div>
 
-                    <!--Id-->
-                    <input aria-label="id" type="hidden" id="student-id" name="id">
+  <div id="delete-confirm-modal" class="modal">
+    <div class="modal-content">
+      <span class="close" id="close-delete-modal">&times;</span>
+      <p>Are you sure you want to delete this student?</p>
+      <div class="modal-buttons">
+        <button id="cancel-delete" class="cancel-btn cancel-delete">Cancel</button>
+        <button id="confirm-delete" class="confirm-delete-btn">Yes, Delete</button>
+      </div>
+    </div>
+  </div>
 
-                    <!-- Group -->
-                    <label for="group">Group</label>
-                    <input type="text" id="group" name="group" required minlength="2" maxlength="10" pattern="^[a-zA-Z]{2,6}[-_][0-9]{1,3}$" title="Group must start with 2-6 letters, followed by an underscore or dash, and end with 1-3 digits.">
-                    <span class="error-message hidden" id="group-error"></span>
-
-                    <!-- First Name -->
-                    <label for="first-name">First Name</label>
-                    <input type="text" id="first-name" name="first-name" required minlength="2" maxlength="20" pattern="^[a-zA-Z]+$" title="First name should only consist of letters.">
-                    <span class="error-message hidden" id="firstname-error"></span>
-
-                    <!-- Last Name -->
-                    <label for="last-name">Last Name</label>
-                    <input type="text" id="last-name" name="last-name" required minlength="2" maxlength="30" pattern="^[a-zA-Z]+$" title="Last name should only consist of letters.">
-                    <span class="error-message hidden" id="lastname-error"></span>
-
-                    <!-- Gender -->
-                    <label for="gender">Gender</label>
-                    <select id="gender" name="gender" required>
-                        <option value="" disabled selected>Select Gender</option>
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
-                        <option value="Other">Other</option>
-                    </select>
-                    <span class="error-message hidden" id="gender-error"></span>
-
-                    <!-- Birthday -->
-                    <label for="birthday">Birthday</label>
-                    <input type="date" id="birthday" name="birthday" required>
-                    <span class="error-message hidden" id="birthday-error"></span>
-
-                    <!-- Submit buttons -->
-                    <div class="modal-buttons">
-                        <button type="button" class="close-btn">Cancel</button>
-                        <button type="submit" class="create-btn" id="submit-modal-button">Create</button>
-                    </div>
-
-                </form>
-            </div>
-        </div>
-
-        <div id="delete-confirm-modal" class="modal">
-            <div class="modal-content">
-                <span class="close" id="close-delete-modal">&times;</span>
-                <p>Are you sure you want to delete this student?</p>
-                <div class="modal-buttons">
-                    <button id="cancel-delete" class="cancel-btn cancel-delete">Cancel</button>
-                    <button id="confirm-delete" class="confirm-delete-btn">Yes, Delete</button>
-                </div>
-            </div>
-        </div>
-
-        <script src="students.js" defer></script>
-        <script src="../script.js" defer></script>
+  <script type="module" src="students.js"></script>
+  <script src="../script.js" defer></script>
 
 </body>
 </html>

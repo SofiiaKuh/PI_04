@@ -1,3 +1,6 @@
+import { fetchStudents, addStudent, updateStudent, deleteStudent } from '../services/studentService.js';
+
+
 const addStudentBtn = document.getElementById("add-student");
 const closeBtn = document.querySelector(".close");
 const studentForm = document.getElementById("student-form");
@@ -40,56 +43,50 @@ cancelDeleteBtn.addEventListener("click", () => {
 });
 
 // Handle form submission (Add or Edit)
-studentForm.addEventListener("submit", (e) => {
+studentForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const id = document.getElementById("student-id").value || Date.now().toString();
     const group = studentForm.querySelector("input[name='group']").value;
-    const firstName = studentForm.querySelector("input[name='first-name']").value;
-    const lastName = studentForm.querySelector("input[name='last-name']").value;
+    const first_name = studentForm.querySelector("input[name='first-name']").value;
+    const last_name = studentForm.querySelector("input[name='last-name']").value;
     const gender = studentForm.querySelector("select[name='gender']").value;
     const birthday = studentForm.querySelector("input[name='birthday']").value;
 
-    if (group && firstName && lastName && gender && birthday) {
+  if (group && first_name && last_name && gender && birthday) {
             const studentData = {
-                id,
                 group,
-                firstName,
-                lastName,
+              first_name,
+              last_name,
                 gender,
                 birthday
             };
 
+      try {
         if (editingRow) {
-            // Update existing row
-            editingRow.innerHTML = createRowContent(id, group, firstName, lastName, gender, birthday);
-            editingRow = null;
+          await updateStudent(editingRow.dataset.id, studentData);
         } else {
-            // Create new row
-            const row = document.createElement("tr");
-            row.innerHTML = createRowContent(id, group, firstName, lastName, gender, birthday);
-            tbody.appendChild(row);
-
-            row.querySelector('.student-checkbox').addEventListener('change', SetChecked);
-            SetChecked();
+          await addStudent(studentData);
         }
 
-        console.log(JSON.stringify(studentData));
-
+        await renderTable(); // refresh table after saving
         document.getElementById("Add-edit-modal").style.display = "none";
         studentForm.reset();
         resetTheEditForm();
+      } catch (error) {
+        console.error("Error saving student:", error);
+      }
     } else {
         alert("Please fill in all fields.");
     }
 });
 
 // Function to generate table row content
-function createRowContent(group, firstName, lastName, gender, birthday) {
-    const rowContent = `
+function createRowContent(group, firstName, lastName, gender, birthday, id) {
+  const rowContent = `
         <td>
             <input type="checkbox" aria-label="Select student" class="student-checkbox">
         </td>
+        <td hidden>${id}</td>
         <td>${group}</td>
         <td>${firstName} ${lastName}</td>
         <td>${gender}</td>
@@ -100,7 +97,7 @@ function createRowContent(group, firstName, lastName, gender, birthday) {
             <button class="delete-btn"><img src="../assets/remove-icon.png" alt="Remove"></button>
         </td>
     `;
-    return rowContent;
+  return rowContent;
 }
 
 // Delete and Edit event listeners
@@ -136,14 +133,14 @@ tbody.addEventListener("click", (e) => {
         editingRow = e.target.closest("tr");
 
         const cells = editingRow.querySelectorAll("td");
-        const nameParts = cells[2].textContent.split(" ");
+        const nameParts = cells[3].textContent.split(" ");
 
         document.getElementById("student-id").value = editingRow.dataset.id || "";
-        document.getElementById("group").value = cells[1].textContent;
+        document.getElementById("group").value = cells[2].textContent;
         document.getElementById("first-name").value = nameParts[0];
         document.getElementById("last-name").value = nameParts[1];
-        document.getElementById("gender").value = cells[3].textContent;
-        document.getElementById("birthday").value = cells[4].textContent;
+        document.getElementById("gender").value = cells[4].textContent;
+        document.getElementById("birthday").value = cells[5].textContent;
 
         const saveButton = document.querySelector(".create-btn");
         saveButton.textContent = "Save";
@@ -176,12 +173,18 @@ function SetChecked() {
 }
 
 // Confirm deletion
-confirmDeleteBtn.addEventListener("click", () => {
-    if (selected.length > 0) {
-        selected.forEach(row => row.remove());
-        selected = []; 
+confirmDeleteBtn.addEventListener("click", async () => {
+  try {
+    for (const row of selected) {
+      const id = row.dataset.id;
+      if (id) await deleteStudent(id);
     }
+    selected = [];
     deleteConfirmModal.style.display = "none";
+    await renderTable();
+  } catch (error) {
+    console.error("Error deleting student:", error);
+  }
 });
 
 // Select all students
@@ -219,14 +222,29 @@ function updateActions() {
 }
 
 
-// Mock data function
-function renderTable() {
-    const row = document.createElement("tr");
-    row.innerHTML = createRowContent("PZ-22", "Sofiia", "Kuhivchak", "Female", "2005-10-10");
-    tbody.appendChild(row);
+async function renderTable() {
+  const students = await fetchStudents();
+  if (students && Array.isArray(students)) {
+    tbody.innerHTML = '';
+
+    students.forEach(student => {
+      const row = document.createElement("tr");
+      row.dataset.id = student.id;
+      row.innerHTML = createRowContent(student.group, student.first_name, student.last_name, student.gender, student.birthday);
+      tbody.appendChild(row);
+    });
+
+    document.querySelectorAll('.student-checkbox').forEach(checkbox => {
+      checkbox.addEventListener('change', SetChecked);
+    });
+  }
+  else {
+    console.error('Invalid students data:', students);
+  }
 }
 
-renderTable();
+
+await renderTable();
 
 
 document.querySelectorAll('.student-checkbox').forEach(checkbox => {
@@ -245,7 +263,7 @@ const selectItem = document.querySelector('select');
 const birthdayInput = document.getElementById('birthday');
 
 const regexPatterns = {
-    group: /^[a-zA-Z]{2,6}[-_][0-9]{1,3}$/, 
+    group: /^[a-zA-Z]{2,6}[\-_][0-9]{1,3}$/, 
     firstName: /^[a-zA-Z]{2,20}$/, 
     lastName: /^[a-zA-Z]{2,30}$/,     
 };
