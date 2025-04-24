@@ -1,0 +1,3 @@
+[submodule "student_app"]
+	path = student_app
+	url = https://github.com/SofiiaKuh/pvi_04_back
