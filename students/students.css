@@ -1,4 +1,4 @@
-
+﻿
 .student-table {
     border-collapse: collapse;
     background: white;
@@ -264,3 +264,4 @@ input:focus, select:focus {
     color: white;
     cursor: not-allowed;
 }
+

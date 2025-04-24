@@ -5,18 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>App</title>
     <link rel="stylesheet" href="/styles.css">
-    <link rel="manifest" href="/manifest.json">
+    <!--<link rel="manifest" href="/manifest.json">-->
 
 </head>
 <body>
     <header>
-        <div class="logo" onclick="window.location.href='students.html'">
+        <div class="logo" onclick="window.location.href='students/students.html'">
             <img src="/assets/logo.png" alt="Logo">
         </div>
 
         <div class="user-info">
-            <div class="notifications">
-                <div class="bell" id="notification-bell" onclick="openMessages()">
+                  <button id="login-btn" data-auth="guest">Log In</button>
+
+            <div class="notifications" >
+                <div class="bell" id="notification-bell" data-auth="user" onclick="openMessages()">
                     <span class="bell-icon">&#128276;</span>
                     <div class="new-messages-indicator" id="new-messages-indicator"></div>
                 </div>
@@ -52,7 +54,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="user-profile">
+            <div class="user-profile" data-auth="user">
                 <div class="profile-icon">
                     <img src="/assets/user-avatar.png" alt="User Avatar">
                     <span class="user-name">Kuhivchak Sofiia</span>
@@ -72,13 +74,13 @@
     </header>
 
     <div class="main-container">
-            <button class="burger-menu" id="burger-menu" onclick="toggleSidebar()">&#9776;</button>
-            <div class="sidebar">
+            <button data-auth="user" class="burger-menu" id="burger-menu" onclick="toggleSidebar()">&#9776;</button>
+            <div data-auth="user" class="sidebar">
                 <nav>
                     <ul>
-                        <li><a href="/dashboard/dashboard.html">Dashboard</a></li>
-                        <li><a href="/students/students.html">Students</a></li>
-                        <li><a href="/tasks/tasks.html" >Tasks</a></li>
+                        <li><a href="/dashboard/dashboard.html" data-auth="user">Dashboard</a></li>
+                        <li><a href="/students/students.html" data-auth="user">Students</a></li>
+                        <li><a href="/tasks/tasks.html" data-auth="user">Tasks</a></li>
                     </ul>
                 </nav>
         </div>
@@ -94,7 +96,20 @@
         </div>
     </div>
 
-
-            <script src="script.js"></script>
+  <div id="login-modal" class="modal">
+  <div class="modal-content">
+    <button class="close-btn" id="login-cancel">&times;</button>
+    <h2>Log In</h2>
+    <form id="login-form">
+      <input type="text" name="username" placeholder="Username" required>
+      <input type="password" name="password" placeholder="Password" required>
+      <div class="btn-group">
+        <button type="button" class="cancel-btn" id="login-cancel-btn">Cancel</button>
+        <button type="submit" class="submit-btn">Log In</button>
+      </div>
+    </form>
+  </div>
+</div>
+            <script type="module" src="script.js"defer ></script>
 </body>
 </html>

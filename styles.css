@@ -1,4 +1,4 @@
-body {
+﻿body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
@@ -348,3 +348,97 @@ button {
         color: gray;
     }
 
+
+#login-modal {
+    display: none; 
+    position: fixed;
+    z-index: 1;
+    overflow: auto;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4);
+    align-items: center;
+    justify-content: center;
+}
+
+    #login-modal.active {
+        display: flex;
+    }
+
+    #login-modal .modal-content {
+        background: white;
+        margin: auto;
+        padding: 20px;
+        border-radius: 8px;
+        width: 320px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        position: relative;
+    }
+
+    #login-modal .close-btn {
+        position: absolute;
+        top: 8px;
+        right: 12px;
+        font-size: 24px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: #888;
+    }
+
+        #login-modal .close-btn:hover {
+            color: #444;
+        }
+
+    #login-modal form {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-top: 16px;
+    }
+
+    #login-modal input {
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 1rem;
+    }
+
+    #login-modal .btn-group {
+        display: flex;
+        justify-content: flex-end;
+        gap: 8px;
+        margin-top: 16px;
+    }
+
+        #login-modal .btn-group button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        #login-modal .btn-group .cancel-btn {
+            background: #f0f0f0;
+        }
+
+            #login-modal .btn-group .cancel-btn:hover {
+                background: #e0e0e0;
+            }
+
+        #login-modal .btn-group .submit-btn {
+            background: #0073e6;
+            color: #fff;
+        }
+
+            #login-modal .btn-group .submit-btn:hover {
+                background: #005bb5;
+            }
+
+
+.disabled {
+    opacity: .5;
+    pointer-events: none;
+}
