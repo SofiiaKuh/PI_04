@@ -17,47 +17,20 @@
       </div>
       <div class="user-info">
         <button id="login-btn" data-auth="guest">Log In</button>
-        <div class="notifications">
+        <div class="notifications"  data-auth="user">
           <div class="bell" id="notification-bell" data-auth="user" onclick="openMessages()">
             <span class="bell-icon">&#128276;</span>
             <div class="new-messages-indicator" id="new-messages-indicator"></div>
           </div>
           <div class="message-preview" id="message-preview">
-            <ul>
-              <li>
-                <div class="message-item">
-                  <img src="../assets/avatar.png" loading="lazy" alt="Avatar">
-                  <div class="message-content">
-                    <span class="sender-name">Student A</span>
-                    <span class="message-text">Sample Message...</span>
-                  </div>
-                </div>
-              </li>
-              <li>
-                <div class="message-item">
-                  <img src="../assets/avatar.png" loading="lazy" alt="Avatar">
-                  <div class="message-content">
-                    <span class="sender-name">Student B</span>
-                    <span class="message-text">Sample Message...</span>
-                  </div>
-                </div>
-              </li>
-              <li>
-                <div class="message-item">
-                  <img src="../assets/avatar.png" loading="lazy" alt="Avatar">
-                  <div class="message-content">
-                    <span class="sender-name">Student C</span>
-                    <span class="message-text">Sample Message...</span>
-                  </div>
-                </div>
-              </li>
-            </ul>
+            <ul id="message-preview-list"></ul>
+
           </div>
         </div>
         <div class="user-profile" data-auth="user">
           <div class="profile-icon">
-            <img src="../assets/user-avatar.png" loading="lazy" alt="User Avatar">
-            <span class="user-name">Kuhivchak Sofiia</span>
+            <img src="../assets/avatar.png" loading="lazy" alt="User Avatar">
+            <span class="user-name" id="user-name">Loading...</span>
           </div>
           <div class="profile-tooltip">
             <ul>

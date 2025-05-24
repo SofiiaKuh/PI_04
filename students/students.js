@@ -1,5 +1,5 @@
 ﻿import { fetchStudents, addStudent, updateStudent, deleteStudent } from '../services/studentService.js';
-import { checkAuthUI, toggleSidebar } from '../script.js';
+import { checkAuthUI, toggleSidebar, checkAndToggleBellIndicator } from '../script.js';
 
 
 const addStudentBtn = document.getElementById("add-student");
@@ -13,8 +13,11 @@ const itemsPerPage = 20;
 const deleteConfirmModal = document.getElementById("delete-confirm-modal");
 const confirmDeleteBtn = document.getElementById("confirm-delete");
 const cancelDeleteBtn = document.getElementById("cancel-delete");
-window.onload = checkAuthUI;
-
+window.onload = onload;
+function onload() {
+  checkAuthUI();
+  checkAndToggleBellIndicator();
+}
 let editingRow = null;
 document.addEventListener('DOMContentLoaded', async() => {
   addStudentBtn.addEventListener("click", () => {

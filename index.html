@@ -23,41 +23,13 @@
                     <div class="new-messages-indicator" id="new-messages-indicator"></div>
                 </div>
                 <div class="message-preview" id="message-preview">
-                    <ul>
-                        <li>
-                            <div class="message-item">
-                                <img src="/assets/avatar.png" alt="Avatar">
-                                <div class="message-content">
-                                    <span class="sender-name">Student A</span>
-                                    <span class="message-text">Sample Message...</span>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="message-item">
-                                <img src="/assets/avatar.png" alt="Avatar">
-                                <div class="message-content">
-                                    <span class="sender-name">Student B</span>
-                                    <span class="message-text">Sample Message...</span>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="message-item">
-                                <img src="../assets/avatar.png" alt="Avatar">
-                                <div class="message-content">
-                                    <span class="sender-name">Student C</span>
-                                    <span class="message-text">Sample Message...</span>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
+                    <ul id="message-preview-list"></ul>
                 </div>
             </div>
             <div class="user-profile" data-auth="user">
                 <div class="profile-icon">
-                    <img src="/assets/user-avatar.png" alt="User Avatar">
-                    <span class="user-name">Kuhivchak Sofiia</span>
+                    <img src="/assets/avatar.png" alt="User Avatar">
+                    <span class="user-name" id="user-name">Loading...</span>
                 </div>
                 <div class="profile-tooltip">
                     <ul>
@@ -110,6 +82,8 @@
     </form>
   </div>
 </div>
-            <script type="module" src="script.js"defer ></script>
+    <script type="module" src="script.js"defer ></script>
+  <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+<script type="module" src="./services/socket.js"></script>
 </body>
 </html>

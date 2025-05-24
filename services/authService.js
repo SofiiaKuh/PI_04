@@ -1,3 +1,5 @@
+import socket from './socket.js';
+
 const API_BASE = 'http://localhost/student_app/public';
 
 export async function login(username, password) {
@@ -9,7 +11,11 @@ export async function login(username, password) {
   });
   const text = await res.text();
   console.log('LOGIN RESPONSE TEXT:', text);
-  return JSON.parse(text);
+
+  let data = JSON.parse(text);
+  socket.emit('register', data.user.id);
+
+  return data;
 }
 
 export async function logout() {

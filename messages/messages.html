@@ -6,6 +6,8 @@
   <title>Messages</title>
   <link rel="stylesheet" href="../styles.css">
   <link rel="stylesheet" href="messages.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
   <!--<link rel="manifest" href="/manifest.json">-->
 
 </head>
@@ -23,41 +25,13 @@
           <div class="new-messages-indicator" id="new-messages-indicator"></div>
         </div>
         <div class="message-preview" id="message-preview">
-          <ul>
-            <li>
-              <div class="message-item">
-                <img src="../assets/avatar.png" alt="Avatar">
-                <div class="message-content">
-                  <span class="sender-name">Student A</span>
-                  <span class="message-text">Sample Message...</span>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="message-item">
-                <img src="../assets/avatar.png" alt="Avatar">
-                <div class="message-content">
-                  <span class="sender-name">Student B</span>
-                  <span class="message-text">Sample Message...</span>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="message-item">
-                <img src="../assets/avatar.png" alt="Avatar">
-                <div class="message-content">
-                  <span class="sender-name">Student C</span>
-                  <span class="message-text">Sample Message...</span>
-                </div>
-              </div>
-            </li>
-          </ul>
+          <ul id="message-preview-list"></ul>
         </div>
       </div>
       <div class="user-profile" data-auth="user">
         <div class="profile-icon">
-          <img src="../assets/user-avatar.png" alt="User Avatar">
-          <span class="user-name">Kuhivchak Sofiia</span>
+          <img src="../assets/avatar.png" alt="User Avatar">
+          <span class="user-name" id="user-name">Loading...</span>
         </div>
         <div class="profile-tooltip">
           <ul>
@@ -81,7 +55,7 @@
         <ul>
           <li><a href="../dashboard/dashboard.html">Dashboard</a></li>
           <li><a href="../students/students.html">Students</a></li>
-          <li><a href="../tasks/tasks.html" >Tasks</a></li>
+          <li><a href="../tasks/tasks.html">Tasks</a></li>
         </ul>
       </nav>
     </div>
@@ -91,11 +65,67 @@
 
         <h1>Messages</h1>
 
-        <p>There is no messages yet)</p>
+        <div id="app" style="display: flex; height: 100vh; font-family: Arial, sans-serif;">
+
+          <!-- Left pane: Chat Rooms List -->
+          <div id="chat-rooms" style="width: 22%; padding: 1rem; box-sizing: border-box;">
+            <h2>Chats</h2>
+            <button id="btn-create-chat">Create New Chat</button>
+            <ul id="chat-list" style="list-style: none; padding: 0; margin-top: 1rem;"></ul>
+          </div>
+
+          <!-- Right pane: Chat Room Details -->
+          <div id="chat-room-detail" style="flex-grow: 1; display: flex; flex-direction: column; display: none;">
+            <div id="chat-members" style="border-bottom: 1px solid #ccc; padding: 0.5rem;"></div>
+            <div id="messages" style="flex-grow: 1; overflow-y: auto; padding: 1rem; background: #f9f9f9;"></div>
+            <div style="padding: 1rem; border-top: 1px solid #ccc; display: flex; gap: 0.5rem;">
+              <input id="message-input" type="text" style="flex-grow: 1; padding: 0.5rem;" placeholder="Type your message...">
+              <button id="send-message-btn" title="Send"><i class="fas fa-paper-plane"></i></button>
+            </div>
+          </div>
+
+          <!-- Placeholder -->
+          <div id="placeholder" style="flex-grow: 1; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: #888;">
+            Choose a chat to start messaging
+          </div>
+
+        </div>
 
       </main>
     </div>
   </div>
+  <!-- Create Chat Room Modal -->
+  <div id="modal-create-room" class="modal" style="display:none;">
+    <div class="modal-content">
+      <h3>Create New Chat Room</h3>
+      <input type="text" id="new-room-name" placeholder="Room name" required>
+      <label for="members-select">Select Members:</label>
+      <div id="user-list-create" style="max-height: 300px; overflow-y: auto;"></div>
+      <h4>Selected Members:</h4>
+      <div id="selected-members-create" style="margin-top: 10px;"></div>
+
+      <div class="modal-buttons">
+        <button class="close-btn" onclick="closeModal('modal-create-room')">Cancel</button>
+        <button onclick="createChatRoom()">Create</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Member Modal -->
+  <div id="modal-add-member" class="modal" style="display:none;">
+    <div class="modal-content">
+      <h3>Add Member</h3>
+      <label for="members-select">Select Members:</label>
+      <div id="user-list-add" style="max-height: 300px; overflow-y: auto;"></div>
+      <h4>Selected Members:</h4>
+      <div id="selected-members-add" style="margin-top: 10px;"></div>
+      <div class="modal-buttons">
+        <button class="close-btn" onclick="closeModal('modal-add-member')">Cancel</button>
+        <button onclick="addMemberToRoom()">Add</button>
+      </div>
+    </div>
+  </div>
+  <div id="toast-container" style="position: fixed; top: 20px; right: 20px; z‑index: 9999;"></div>
 
   <script type="module" src="messages.js" defer></script>
   <script type="module" src="../script.js" defer></script>

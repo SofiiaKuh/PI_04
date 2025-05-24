@@ -1,0 +1,249 @@
+
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+main {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#chat-room-detail {
+    height: 85%;
+    display: flex;
+    flex-direction: column;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin: 1rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    z-index: 999;
+}
+
+.modal-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+#messages {
+    flex-grow: 1;
+    overflow-y: auto;
+    min-height: 0;
+    max-height: 360px;
+}
+
+
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+form {
+    display: flex;
+    flex-direction: column;
+    padding-right: 20px;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+input[type="text"] {
+    padding: 8px 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+    margin-right: 10px;
+    box-sizing: border-box;
+}
+
+
+.modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+button.close-btn {
+    background-color: white;
+    border: solid 1px #0073e6;
+    color: black;
+}
+
+    button.close-btn:hover {
+        background-color: #f0f0f0;
+    }
+
+.selected-member {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 8px;
+    background-color: #eee;
+    border-radius: 20px;
+    font-size: 0.9em;
+}
+
+#selected-members-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.chat-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.chat-room-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+    transition: background 0.2s;
+}
+
+    .chat-room-item:hover {
+        background-color: #f5f5f5;
+    }
+
+.chat-room-name {
+    flex: 1;
+    font-weight: 500;
+}
+
+.unread-indicator {
+    min-width: 18px;
+    height: 18px;
+    background-color: rgba(56, 142, 60, 0.6);
+    border-radius: 50%;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 18px;
+    text-align: center;
+    padding: 0 6px;
+    margin-left: 10px; 
+    display: inline-block; 
+}
+
+.chat-bubble {
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+    max-width: 60%;
+    background-color: #e0e0e0;
+    color: black;
+}
+
+    .chat-bubble.mine {
+        background-color: #4caf50;
+        color: white;
+        align-self: flex-end;
+    }
+
+#send-message-btn {
+    width: 36px;
+    height: 36px;
+    padding: 4px;
+    font-size: 18px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #0073e6;
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+    #send-message-btn:hover {
+        color: #005bb5;
+        transform: scale(1.3);
+    }
+
+.chat-room-item.active {
+    background-color: #f0f0f0;
+    border-left: 4px solid #3498db;
+}
+.avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 8px;
+}
+
+.message-time {
+    font-size: 0.7rem;
+    color: #888;
+    position: absolute;
+    bottom: -1rem;
+    right: 0;
+
+}
+
+.seen-indicator {
+    font-size: 0.7rem;
+    color: green;
+    position: absolute;
+    bottom: -1rem;
+    left: 0;
+    cursor: default;
+}
+
+.message-item.highlight {
+    background-color: #ffffcc;
+    border-left: 4px solid #ff9900;
+    animation: highlightFade 3s ease forwards;
+}
+
+@keyframes highlightFade {
+    0% {
+        background-color: #ffffcc;
+        border-left-color: #ff9900;
+    }
+
+    50% {
+        background-color: #fff799;
+        border-left-color: #ffcc33;
+    }
+
+    100% {
+        background-color: transparent;
+        border-left-color: transparent;
+    }
+}
